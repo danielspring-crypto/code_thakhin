@@ -1,0 +1,51 @@
+{% extends 'codeapp/base.html' %}
+{% load static %}
+
+{% block header %}
+  <header class="masthead" style="background-image: url('{% static 'codeapp/img/python.png' %}')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="site-heading">
+              {% if messages %}
+                {% for message in messages %}
+                  <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                  </div>
+                {% endfor %}
+              {% endif %}
+
+            <h2 class="animate__animated animate__pulse"><img src="https://img.icons8.com/color/96/000000/python.png"/>Python Programming
+            </h2>
+            {% if user.is_authenticated %}
+              <h4>Welcome, {{ user.username }}</h4>
+            {% else %}
+          <a href="{% url 'register' %}" class="btn btn-sm btn-dark">Enroll Course
+          </a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <div class="row"> 
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <div class="post-preview">
+          {% for python in pythons %}
+          <a href="{% url 'detail' python.id %}">
+            <p class="post-subtitle">
+              {{ python.title }}
+            </p>
+          </a>
+          <hr>
+          {% endfor %}
+        <!-- Pager -->
+      </div>
+    </div>
+  </div>
+{% endblock %}
