@@ -1,51 +1,43 @@
 {% extends 'codeapp/base.html' %}
 {% load static %}
 
-{% block header %}
-  <header class="masthead" style="background-image: url('{% static 'codeapp/img/python.png' %}')">
-    <div class="overlay"></div>
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
-          <div class="site-heading">
-              {% if messages %}
-                {% for message in messages %}
-                  <div class="alert alert-{{ message.tags }}">
-                    {{ message }}
-                  </div>
-                {% endfor %}
-              {% endif %}
-
-            <h2 class="animate__animated animate__pulse"><img src="https://img.icons8.com/color/96/000000/python.png"/>Python Programming
-            </h2>
-            {% if user.is_authenticated %}
-              <h4>Welcome, {{ user.username }}</h4>
-            {% else %}
-          <a href="{% url 'register' %}" class="btn btn-sm btn-dark">Enroll Course
-          </a>
-            {% endif %}
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
-{% endblock %}
-
 {% block content %}
-  <div class="container">
-    <div class="row"> 
-      <div class="col-lg-8 col-md-10 mx-auto">
-        <div class="post-preview">
-          {% for python in pythons %}
-          <a href="{% url 'detail' python.id %}">
-            <p class="post-subtitle">
-              {{ python.title }}
-            </p>
-          </a>
-          <hr>
-          {% endfor %}
-        <!-- Pager -->
-      </div>
+
+    <ul class="nav sticky-top justify-content-center zwetop">
+      <li class="nav-item">
+        <h5 class="nav-link active" align="center">Code ThaKhin</h5>
+        <p align="center"><img src="{% static 'codeapp/python.png' %}" width="10%"> Python Programming Basic
+        </p>
+      </li>
+
+    </ul>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-xs-12">
+                <br>
+            {% if user.is_authenticated %}
+              {% for python in pythons %}  
+                <div class="alert alert-dark" role="alert">
+                  <a href="{% url 'detail' python.id %}" class="a">{{ python.title }}</a>
+                </div>
+              {% endfor %}
+            {% else %}
+              <div class="container">
+                <div class="row">
+                  <div class="col-md-12 col-xs-12">
+                    <br><br>
+                    <a class="btn btn-dark btn-lg btn-block" href="{% url 'register' %}">Create Account</a>  <br><br>
+                    <a class="btn btn-dark btn-lg btn-block" href="{% url 'login' %}">Login Account</a><br><br>
+                    <a class="btn btn-dark btn-lg btn-block" href="{% url 'about' %}">About Us</a>
+                  </div>
+                </div>
+              </div>
+            {% endif %}
+            </div>
+            
+        </div>
     </div>
-  </div>
+
 {% endblock %}
